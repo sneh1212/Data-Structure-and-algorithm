@@ -1,50 +1,78 @@
 package string;
-/*
- * Excel Sheet Column Number
- * Given a column title as appear in an Excel sheet, return its corresponding column number.
 
-For example:
 
-    A -> 1
-    B -> 2
-    C -> 3
-    ...
-    Z -> 26
-    AA -> 27
-    AB -> 28 
-    ...
-Example 1:
 
-Input: "A"
-Output: 1
-Example 2:
+class Queue1 {
 
-Input: "AB"
-Output: 28
-Example 3:
-
-Input: "ZY"
-Output: 701
- 
-
-Constraints:
-
-1 <= s.length <= 7
-s consists only of uppercase English letters.
-s is between "A" and "FXSHRXW"
- */
-public class main {
 	
-public int titleToNumber(String A) {
-        
-        int res=0;
-        for(int i=0;i<A.length();i++)
-        {
-            int temp=(int)Math.pow(26,i)+((A.charAt(i)-'A'));
-            res+=temp;
-        }
-        return res;
-        
-    }
+	class Node
+	{
+		int val;
+		Node next=null;
+		Node(int data)
+		{
+			this.val=data;
+		}
+		
+	}
+	Node head,tail,prev;
+	 void enq(int val)
+		{
+			if(head==null)
+			{
+				head=new Node(val);
+				tail=head;
+				
+			}
+			else
+			{
+				
+				tail.next=new Node(val);
+				tail=tail.next;
+			}
+		}
+	
+	 void deq()
+	 {
+		 if(head!=null)
+		 {
+			 head=head.next;
+		 }
+			 
+	 }
+	 void display()
+	 {
+		 Node head1=head;
+		 while(head1!=null)
+		 {
+			 System.out.print(head1.val+" ");
+			 head1=head1.next;
+			 
+		 }
+	 }
+}
+
+public class main {
+
+	
+	
+	
+	public static void main(String[] args) {
+		Queue1 st = new Queue1();
+		st.enq(1);
+		st.enq(2);
+		
+		st.deq();
+		
+		st.enq(3);
+		
+		st.deq();
+		st.display();
+		
+		
+		
+
+	}
+	
 
 }
