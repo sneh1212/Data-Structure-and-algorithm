@@ -1,56 +1,81 @@
 package string;
-import java.util.*;
-public class stack {
+
+ class stack1 {
+
 	
-	static int stack[] = new int[10];
-	static int top=0;
-	public static void main(String args[])
+	class Node
 	{
-		Scanner s = new Scanner(System.in);
-         while(true)
-         {
-        	 System.out.println("1.push 2. pop 3.display 4.exit enter in number 1 2 3 4 ");
-        	 int in=s.nextInt();
-        	 if(in==1)
-        	 {
-        		 System.out.println("enter value");
-        		 int val=s.nextInt();
-        		 push(val);
-        	 }
-        	 else if(in==2)
-        	 {
-        		 pop();
-        	 }
-        	 else if(in==3)
-        	 {
-        		 display();
-        		 
-        	 }
-        	 else
-        	 {
-        		 break;
-        	 }
-        		 
-        	 
-         }
+		int val;
+		Node next=null;
+		Node(int data)
+		{
+			this.val=data;
+		}
 		
 	}
-	static void push(int val)
-	{
+	Node head,tail,prev;
+	 void push(int val)
+		{
+			if(head==null)
+			{
+				head=new Node(val);
+				tail=head;
+				
+			}
+			else
+			{
+				prev=tail;
+				tail.next=new Node(val);
+				tail=tail.next;
+			}
+		}
+	 void peek()
+	 {
+		 if(head!=null)
+			 System.out.print(tail.val+" ");
+		 
+	 }
+	 void pop()
+	 {
+		 if(prev!=null)
+		 {   tail=prev;
+		     prev.next=null;
+		 }
+			 
+	 }
+	 void display()
+	 {
+		 Node head1=head;
+		 while(head1!=null)
+		 {
+			 System.out.print(head1.val+" ");
+			 head1=head1.next;
+			 
+		 }
+	 }
+}
+
+public class stack {
+
+	
+	
+	
+	public static void main(String[] args) {
+		stack1 st = new stack1();
+		st.push(1);
+		st.push(2);
 		
-		if(top<10)
-			stack[top++]=val;
+		st.pop();
+		
+		st.push(3);
+		st.peek();
+		st.pop();
+		st.display();
+		
+		
+		
+
 	}
-	static void pop()
-	{
-		if(top!=0)
-			top--;
-	}
-	static void display()
-	{
-		for(int i=0;i<top;i++)
-			System.out.print(stack[i]+" ");
-		System.out.println();
-	}
+	
 
 }
