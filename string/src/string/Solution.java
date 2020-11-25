@@ -1,53 +1,56 @@
 package string;
 /*
- * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ * Given an array, find the nearest smaller element G[i] for every element A[i] in the array such that the element has an index smaller than i.
 
-An input string is valid if:
+More formally,
 
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
- 
+    G[i] for an element A[i] = an element A[j] such that 
+    j is maximum possible AND 
+    j < i AND
+    A[j] < A[i]
+Elements for which no smaller element exist, consider next smaller element as -1.
 
-Example 1:
+Input Format
 
-Input: s = "()"
-Output: true
-Example 2:
-
-Input: s = "()[]{}"
-Output: true
-Example 3:
-
-Input: s = "(]"
-Output: false
-Example 4:
-
-Input: s = "([)]"
-Output: false
-Example 5:
-
-Input: s = "{[]}"
-Output: true
+The only argument given is integer array A.
+Input 1:
+    A = [4, 5, 2, 10, 8]
+Output 1:
+    G = [-1, 4, -1, 2, 2]
+Explaination 1:
+    index 1: No element less than 4 in left of 4, G[1] = -1
+    index 2: A[1] is only element less than A[2], G[2] = A[1]
+    index 3: No element less than 2 in left of 2, G[3] = -1
+    index 4: A[3] is nearest element which is less than A[4], G[4] = A[3]
+    index 4: A[3] is nearest element which is less than A[5], G[5] = A[3]
+    
+Input 2:
+    A = [3, 2, 1]
+Output 2:
+    [-1, -1, -1]
+Explaination 2:
+    index 1: No element less than 3 in left of 3, G[1] = -1
+    index 2: No element less than 2 in left of 2, G[2] = -1
+    index 3: No element less than 1 in left of 1, G[3] = -1
  */
-
-class Solution {
-    public boolean isValid(String s) {
+public class Solution {
+    public ArrayList<Integer> prevSmaller(ArrayList<Integer> A) {
         
-        Stack<Character> st = new Stack<>();
-        for(char i:s.toCharArray())
+        Stack<Integer> st = new Stack<>();
+        ArrayList<Integer> al = new ArrayList<>();
+        for(int i=0;i<A.size();i++)
         {
-            if(i=='('||i=='{'||i=='[')
+            if(st.size()!=0)
             {
-                st.push(i);
-                
+                while(!st.isEmpty()&&st.peek()>=A.get(i))
+                st.pop();
             }
-            else if(!st.isEmpty()&&(st.peek()=='('&&i==')'||!st.isEmpty()&&st.peek()=='{'&&i=='}'||!st.isEmpty()&&st.peek()=='['&&i==']'))
-                                    st.pop();
-            else
-            return false;
+            if(st.size()==0)
+            al.add(-1);
+            else if(st.size()!=0)
+            al.add(st.peek());
+            st.push(A.get(i));
         }
-            return st.isEmpty();
-        
-        
+        return al;
     }
 }
